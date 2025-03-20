@@ -10,6 +10,8 @@ import { DetailPost } from "./pages/posts/detail/index.jsx";
 import { AddPost } from "./pages/posts/add/index.jsx";
 import { Auth } from "./pages/auth/index.jsx";
 import { Registration } from "./pages/registration/index.jsx";
+import { store } from "./redux/store.js";
+import { Provider } from "react-redux";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +52,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>
 );
