@@ -1,5 +1,6 @@
 import * as SC from "./styles";
 import { FaArrowRight } from 'react-icons/fa';
+import { Link } from "../../../Link";
 
 export const Post = ({ post }) => (
   <SC.Post>
@@ -7,10 +8,10 @@ export const Post = ({ post }) => (
     <SC.Content>
       <SC.Title>{post.title}</SC.Title>
       <SC.Description>{post.description}</SC.Description>
-      <SC.DetailLink to={`/posts/${post.id}`}>
+      <Link to={`/posts/${post.id}`}>
         Подробнее
         <FaArrowRight />
-      </SC.DetailLink>
+      </Link>
     </SC.Content>
   </SC.Post>
 );
