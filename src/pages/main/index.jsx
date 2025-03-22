@@ -1,5 +1,6 @@
 import { Posts } from "../../components/Posts"
 import { Typo } from "../../components/Typo"
+
 const INITIAL_POSTS = [
     {
       id: 1,
@@ -19,7 +20,10 @@ const INITIAL_POSTS = [
     
   ]
 
-export const PostsPage = () => <>
-<Typo>Публикации</Typo>
-<Posts posts={INITIAL_POSTS} />
-</>
+export const MainPage = () => (
+    <>
+    <Typo>Свежие публикации</Typo>
+    <Posts posts={INITIAL_POSTS} />
+    </>
+
+)

@@ -1,2 +1,2 @@
 
-export const DetailPost = () => <>Это детальная страничка постов</>
+export const DetailPostPage = () => <>Это детальная страничка постов</>
