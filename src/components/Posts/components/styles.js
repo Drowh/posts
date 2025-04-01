@@ -5,7 +5,7 @@ export const Posts = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: 24px;
-  padding: 24px;
+  padding: 12px;
   max-width: 1200px;
   margin: 0 auto;
 `;
@@ -26,8 +26,7 @@ export const PostWrapper = styled.div`
 
 export const PostsContainer = styled.div`
   background-color: #f8f9fa;
-  min-height: 100vh;
-  padding: 40px 0;
+  padding: 10px 0;
 `;
 
 export const Title = styled.h1`

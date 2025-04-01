@@ -1,17 +1,23 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { INITIAL_POSTS } from "../index";
 import { Typo } from "../../../components/Typo";
 import { FaArrowUp } from 'react-icons/fa';
 import { Link } from "../../../components/Link";
+import { getPost } from "../../../redux/slices/postSlice";
 
 import * as SC from './styles';
 
 export const DetailPostPage = () => {
     const { id } = useParams()
-    const currentPost = useMemo(() => INITIAL_POSTS.find(post => post.id === Number(id)), [id])
+    const postForView = useSelector((state) => state.posts.postForView)
+    const dispatch = useDispatch()
 
-    if (!currentPost) {
+    useEffect(() => {
+        dispatch(getPost(Number(id)))
+    }, [id])
+
+    if (!postForView) {
         return <SC.PostContainer>
             <Typo>Пост не найден.</Typo>
         </SC.PostContainer>;
@@ -20,10 +26,10 @@ export const DetailPostPage = () => {
     return (
         <SC.PostContainer>
             <SC.PostTitle>
-                <Typo>{currentPost.title}</Typo>
+                <Typo>{postForView.title}</Typo>
             </SC.PostTitle>
-            <SC.PostImage src={currentPost.image} alt={currentPost.title} />
-            <SC.PostContent>{currentPost.text}</SC.PostContent>
+            <SC.PostImage src={postForView.image} alt={postForView.title} />
+            <SC.PostContent>{postForView.text}</SC.PostContent>
             <Link to="/posts/">
                 Обратно к публикации
             <FaArrowUp />
