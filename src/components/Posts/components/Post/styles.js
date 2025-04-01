@@ -34,7 +34,7 @@ export const Post = styled.div`
 `;
 
 export const Image = styled.img`
-  height: 400px;
+  height: 300px;
   background-size: cover;
   background-position: center;
   position: relative;
