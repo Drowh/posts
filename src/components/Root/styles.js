@@ -16,7 +16,8 @@ export const Menu = styled.div`
   gap: 20px;
   align-items: center;
   justify-content: space-between;
-  max-width: 600px;
+  width: 100%;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 16px 24px;
   background: ${colors.light};

@@ -10,7 +10,7 @@ display: inline-flex;
   color: #2a6df4;
   text-decoration: none;
   font-weight: 600;
-  margin-top: 24px;
+  margin-top: 12px;
   transition: color 0.3s ease;
 
   svg {

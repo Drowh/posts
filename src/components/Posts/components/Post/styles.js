@@ -73,7 +73,7 @@ export const Image = styled.img`
 `;
 
 export const Content = styled.div`
-  padding: 20px;
+  padding: 10px;
   flex: 1;
 `;
 
@@ -82,7 +82,6 @@ export const Title = styled.h2`
   font-weight: 700;
   color: ${colors.text};
   margin: 0 0 12px 0;
-  line-height: 1.3;
   position: relative;
 
   &::after {

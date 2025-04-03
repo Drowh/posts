@@ -1,2 +1,3 @@
+import { PostForm } from "../components/PostForm";
 
-export const AddPostPage = () => <>Это страничка добавления постов</>
+export const AddPostPage = () => <PostForm />
