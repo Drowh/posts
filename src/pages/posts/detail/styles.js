@@ -38,3 +38,8 @@ export const PostContent = styled.div`
   }
 `;
 
+export const WrapperLinks = styled.div`
+  display: flex;
+  gap: 20px;
+`
+

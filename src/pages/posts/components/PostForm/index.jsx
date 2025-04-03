@@ -1,17 +1,14 @@
 import { useState } from "react";
 import { Container } from "../../../../components/container";
-import { useDispatch } from "react-redux";
 import * as SC from "./styles";
-import { addPost } from "../../../../redux/slices/postSlice";
 
 const DEFAULT_VALUES = {
   title: "",
   body: "",
 };
 
-export const PostForm = () => {
-  const dispatch = useDispatch();
-  const [formValues, setFormValues] = useState(DEFAULT_VALUES);
+export const PostForm = ({ title, onSubmitForm, defaultValues }) => {
+  const [formValues, setFormValues] = useState(defaultValues || DEFAULT_VALUES);
 
   const onChange = (name, value) => {
     setFormValues({ ...formValues, [name]: value });
@@ -19,16 +16,18 @@ export const PostForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(addPost(formValues));
-    setFormValues(DEFAULT_VALUES);
+
+    onSubmitForm(formValues);
+
+    !defaultValues && setFormValues(DEFAULT_VALUES);
   };
 
   const disabled = !formValues.title || !formValues.body;
-  
+
   return (
     <Container>
       <SC.FormContainer>
-        <SC.FormTitle>Добавить новый пост</SC.FormTitle>
+        <SC.FormTitle>{title}</SC.FormTitle>
         <SC.Form onSubmit={onSubmit}>
           <SC.FormGroup>
             <SC.Label htmlFor="title">Заголовок</SC.Label>
@@ -36,7 +35,7 @@ export const PostForm = () => {
               type="text"
               name="title"
               value={formValues.title}
-              placeholder="Введите заголовок поста"
+              placeholder="Введите заголовок"
               onChange={(e) => onChange(e.target.name, e.target.value)}
             />
           </SC.FormGroup>
@@ -46,7 +45,7 @@ export const PostForm = () => {
             <SC.TextArea
               name="body"
               value={formValues.body}
-              placeholder="Введите текст поста"
+              placeholder="Введите текст"
               onChange={(e) => onChange(e.target.name, e.target.value)}
             />
           </SC.FormGroup>

@@ -27,10 +27,9 @@ export const DetailPostPage = () => {
 
   if (postForView.loading) {
     return (
-      <SC.PostContainer>
-        <Loader />
-        <Typo>Loading...</Typo>
-      </SC.PostContainer>
+      <>
+        <Typo><Loader />Loading...</Typo>
+      </>
     );
   }
 
@@ -58,10 +57,16 @@ export const DetailPostPage = () => {
       </SC.PostTitle>
       <SC.PostImage src={image} alt={post.title} />
       <SC.PostContent>{post.body}</SC.PostContent>
-      <Link to="/posts/">
-        Обратно к публикации
-        <FaArrowUp />
-      </Link>
+      <SC.WrapperLinks>
+        <Link to="/posts/">
+          Обратно к публикации
+          <FaArrowUp />
+        </Link>
+        <Link to={`/posts/${post.id}/edit`}>
+          Редактировать
+          <FaArrowUp />
+        </Link>
+      </SC.WrapperLinks>
     </SC.PostContainer>
   );
 };
