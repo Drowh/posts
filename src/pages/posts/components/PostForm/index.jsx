@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Container } from "../../../../components/container";
 import * as SC from "./styles";
+import { Button } from "../../../../components/Button";
 
 const DEFAULT_VALUES = {
   title: "",
@@ -50,9 +51,9 @@ export const PostForm = ({ title, onSubmitForm, defaultValues }) => {
             />
           </SC.FormGroup>
 
-          <SC.SubmitButton type="submit" disabled={disabled}>
+          <Button type="submit" disabled={disabled}>
             Сохранить
-          </SC.SubmitButton>
+          </Button>
         </SC.Form>
       </SC.FormContainer>
     </Container>

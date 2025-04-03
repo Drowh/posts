@@ -1,10 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Typo } from "../../../components/Typo";
 import { FaArrowUp } from "react-icons/fa";
 import { Link } from "../../../components/Link";
-import { getPostById, showPost } from "../../../redux/slices/postSlice";
+import {
+  getPostById,
+  showPost,
+  deletePost,
+} from "../../../redux/slices/postSlice";
+import { Button } from "../../../components/Button";
 
 import * as SC from "./styles";
 import { Loader } from "../../../components/Loader";
@@ -14,6 +19,15 @@ export const DetailPostPage = () => {
   const { list } = useSelector((state) => state.posts.posts);
   const postForView = useSelector((state) => state.posts.postForView);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [postForDelete, setPostForDelete] = useState(null);
+
+  const onDeletePost = () => {
+    dispatch(deletePost(postForDelete));
+    setPostForDelete(null);
+    return navigate("/posts");
+  };
 
   useEffect(() => {
     const intId = Number(id);
@@ -28,7 +42,10 @@ export const DetailPostPage = () => {
   if (postForView.loading) {
     return (
       <>
-        <Typo><Loader />Loading...</Typo>
+        <Typo>
+          <Loader />
+          Loading...
+        </Typo>
       </>
     );
   }
@@ -52,6 +69,24 @@ export const DetailPostPage = () => {
 
   return (
     <SC.PostContainer>
+      {postForDelete && (
+        <SC.ModalOverlay>
+          <SC.Modal>
+            <SC.ModalHeader>
+              <h2>
+                Вы точно уверены, что хотите удалить публикацию c ID -{" "}
+                {postForDelete.id}
+              </h2>
+            </SC.ModalHeader>
+            <SC.ButtonContent>
+              <SC.Button onClick={() => onDeletePost(postForDelete)}>
+                Да!
+              </SC.Button>
+              <Button onClick={() => setPostForDelete(null)}>Нет</Button>
+            </SC.ButtonContent>
+          </SC.Modal>
+        </SC.ModalOverlay>
+      )}
       <SC.PostTitle>
         <Typo>{post.title}</Typo>
       </SC.PostTitle>
@@ -62,10 +97,15 @@ export const DetailPostPage = () => {
           Обратно к публикации
           <FaArrowUp />
         </Link>
-        <Link to={`/posts/${post.id}/edit`}>
-          Редактировать
-          <FaArrowUp />
-        </Link>
+        {list && (
+          <Link to={`/posts/${post.id}/edit`}>
+            Редактировать
+            <FaArrowUp />
+          </Link>
+        )}
+        {list && (
+          <Button onClick={() => setPostForDelete(post)}>Удалить</Button>
+        )}
       </SC.WrapperLinks>
     </SC.PostContainer>
   );
