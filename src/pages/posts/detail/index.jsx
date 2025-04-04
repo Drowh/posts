@@ -4,12 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Typo } from "../../../components/ui/Typo";
 import { FaArrowUp } from "react-icons/fa";
 import { Link } from "../../../components/ui/Link";
+import { Button } from "../../../components/ui/button";
 import {
   getPostById,
   showPost,
   deletePost,
 } from "../../../redux/slices/postSlice";
-import { Button } from "../../../components/ui/Button";
 
 import * as SC from "./styles";
 import { Loader } from "../../../components/ui/Loader";
@@ -20,8 +20,12 @@ export const DetailPostPage = () => {
   const postForView = useSelector((state) => state.posts.postForView);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+  
 
   const [postForDelete, setPostForDelete] = useState(null);
+
+  const showEditAndDeleteButtons = user && list;
 
   const onDeletePost = () => {
     dispatch(deletePost(postForDelete));
@@ -97,13 +101,13 @@ export const DetailPostPage = () => {
           Обратно к публикации
           <FaArrowUp />
         </Link>
-        {list && (
+        {showEditAndDeleteButtons && (
           <Link to={`/posts/${post.id}/edit`}>
             Редактировать
             <FaArrowUp />
           </Link>
         )}
-        {list && (
+        {showEditAndDeleteButtons && (
           <Button onClick={() => setPostForDelete(post)}>Удалить</Button>
         )}
       </SC.WrapperLinks>
