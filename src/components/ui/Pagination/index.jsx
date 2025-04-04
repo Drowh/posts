@@ -1,7 +1,7 @@
-import * as SC from './styles';
-import { useState } from 'react';
+import * as SC from "./styles";
+import { useState } from "react";
 
-const Pagination = ({ totalItems, itemsPerPage, onPageChange }) => {
+export const Pagination = ({ totalItems, itemsPerPage, onPageChange }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -13,17 +13,22 @@ const Pagination = ({ totalItems, itemsPerPage, onPageChange }) => {
 
   const renderPageNumbers = () => {
     const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
+    const maxVisiblePages = 5;
+    const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    for (let i = startPage; i <= endPage; i++) {
       pages.push(
-        <PageButton
+        <SC.PageButton
           key={i}
           isActive={i === currentPage}
           onClick={() => handlePageChange(i)}
         >
           {i}
-        </PageButton>
+        </SC.PageButton>
       );
     }
+
     return pages;
   };
 
@@ -31,21 +36,29 @@ const Pagination = ({ totalItems, itemsPerPage, onPageChange }) => {
     <SC.PaginationContainer>
       <SC.PageButton
         disabled={currentPage === 1}
+        onClick={() => handlePageChange(1)}
+      >
+        Первая
+      </SC.PageButton>
+      <SC.PageButton
+        disabled={currentPage === 1}
         onClick={() => handlePageChange(currentPage - 1)}
       >
-        Previous
+        Предыдущая
       </SC.PageButton>
       {renderPageNumbers()}
       <SC.PageButton
         disabled={currentPage === totalPages}
         onClick={() => handlePageChange(currentPage + 1)}
       >
-        Next
+        Следующая
+      </SC.PageButton>
+      <SC.PageButton
+        disabled={currentPage === totalPages}
+        onClick={() => handlePageChange(totalPages)}
+      >
+        Последняя
       </SC.PageButton>
     </SC.PaginationContainer>
   );
 };
-
-
-
-export default Pagination;

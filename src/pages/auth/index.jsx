@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "../../components/ui/button";
-import { Container } from "../../components/container";
+import { Container } from "../../components/Container";
 import { Form, FormTitle } from "../../components/ui/form";
 import { Field } from "../../components/ui/field";
 import { Input } from "../../components/ui/input";
