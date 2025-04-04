@@ -5,6 +5,9 @@ import { Typo } from "../../../components/ui/Typo";
 import { FaArrowUp } from "react-icons/fa";
 import { Link } from "../../../components/ui/Link";
 import { Button } from "../../../components/ui/button";
+import { Modal } from "../../../components/ui/Modal";
+import { ButtonYes } from "../../../components/ui/Modal/styles";
+import { Loader } from "../../../components/ui/Loader";
 import {
   getPostById,
   showPost,
@@ -12,7 +15,6 @@ import {
 } from "../../../redux/slices/postSlice";
 
 import * as SC from "./styles";
-import { Loader } from "../../../components/ui/Loader";
 
 export const DetailPostPage = () => {
   const { id } = useParams();
@@ -21,7 +23,6 @@ export const DetailPostPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  
 
   const [postForDelete, setPostForDelete] = useState(null);
 
@@ -46,10 +47,7 @@ export const DetailPostPage = () => {
   if (postForView.loading) {
     return (
       <>
-        <Typo>
-          <Loader />
-          Loading...
-        </Typo>
+        <Loader />
       </>
     );
   }
@@ -74,22 +72,21 @@ export const DetailPostPage = () => {
   return (
     <SC.PostContainer>
       {postForDelete && (
-        <SC.ModalOverlay>
-          <SC.Modal>
-            <SC.ModalHeader>
-              <h2>
-                Вы точно уверены, что хотите удалить публикацию c ID -{" "}
-                {postForDelete.id}
-              </h2>
-            </SC.ModalHeader>
-            <SC.ButtonContent>
-              <SC.Button onClick={() => onDeletePost(postForDelete)}>
+        <Modal
+          isOpen={!!postForDelete}
+          onClose={() => setPostForDelete(null)}
+          title={`Вы точно уверены, что хотите удалить публикацию c ID - ${postForDelete.id}?`}
+          footer={
+            <>
+              <ButtonYes onClick={() => onDeletePost(postForDelete)}>
                 Да!
-              </SC.Button>
+              </ButtonYes>
               <Button onClick={() => setPostForDelete(null)}>Нет</Button>
-            </SC.ButtonContent>
-          </SC.Modal>
-        </SC.ModalOverlay>
+            </>
+          }
+        >
+          <p>Это действие нельзя отменить.</p>
+        </Modal>
       )}
       <SC.PostTitle>
         <Typo>{post.title}</Typo>

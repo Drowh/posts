@@ -3,22 +3,32 @@ import { Posts } from "../../components/Posts";
 import { useEffect } from "react";
 import { getFreshPosts, getPosts } from "../../redux/slices/postSlice";
 import { Typo } from "../../components/ui/Typo";
+import { Loader } from "../../components/ui/Loader";
 
 export const MainPage = () => {
-
   const dispatch = useDispatch();
 
-  const {post} = useSelector((state) => state.posts.postForView);
-  const {posts, loading} = useSelector((state) => state.posts.freshPosts);
+  const { post } = useSelector((state) => state.posts.postForView);
+  const { posts, loading } = useSelector((state) => state.posts.freshPosts);
+  const { list } = useSelector((state) => state.posts.posts);
 
   useEffect(() => {
-    dispatch(getPosts()).then(() => {
-      dispatch(getFreshPosts());
-    });
-  }, []);
+    const loadData = async () => {
+      if (!list) {
+        await dispatch(getPosts());
+      }
+
+      if (!posts) {
+        dispatch(getFreshPosts());
+      }
+    };
+
+    loadData();
+  }, [dispatch, list, posts]);
+
   return (
     <>
-    {loading && <Typo>Loading...</Typo>}
+      {loading && <Loader />}
       {posts && (
         <>
           <Typo>Свежие публикации</Typo>

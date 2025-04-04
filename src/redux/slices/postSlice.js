@@ -23,32 +23,35 @@ export const getPostById = createAsyncThunk(
   }
 );
 
-export const getPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  return await postsAPI.fetchPosts();
-});
+export const getPosts = createAsyncThunk(
+  "posts/fetchPosts",
+  async (limit = null) => {
+    return await postsAPI.fetchPosts(limit); 
+  }
+);
 
 export const getFreshPosts = createAsyncThunk(
   "posts/fetchFreshPosts",
-  async (limit) => {
-    return await postsAPI.fetchFreshPosts(limit);
-  });
+  async (limit = 3) => {
+    return await postsAPI.fetchFreshPosts(limit); 
+  }
+);
 
 export const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
     editPost: (state, action) => {
-      state.posts.list = state.posts.list.map((post) => {
-        if (post.id === action.payload.id) {
-          return action.payload 
-        }
-        return post;
-      })
+      state.posts.list = state.posts.list.map((post) =>
+        post.id === action.payload.id ? action.payload : post
+      );
     },
     addPost: (state, action) => {
-      const newPost = {...action.payload}
-      newPost.id = new Date().getTime()
-      state.posts.list = state.posts.list ? [newPost, ...state.posts.list] : [newPost]
+      const newPost = { ...action.payload };
+      newPost.id = new Date().getTime();
+      state.posts.list = state.posts.list
+        ? [newPost, ...state.posts.list]
+        : [newPost];
     },
     showPost: (state, action) => {
       state.postForView = {
@@ -57,7 +60,9 @@ export const postsSlice = createSlice({
       };
     },
     deletePost: (state, action) => {
-      state.posts.list = state.posts.list.filter((post) => post.id !== action.payload.id);
+      state.posts.list = state.posts.list.filter(
+        (post) => post.id !== action.payload.id
+      );
       state.postForView = {
         post: null,
         loading: false,
@@ -102,8 +107,8 @@ export const postsSlice = createSlice({
       };
     });
   },
-})
+});
 
-export const { setPosts, editPost, addPost, showPost, deletePost } = postsSlice.actions;
+export const { editPost, addPost, showPost, deletePost } = postsSlice.actions;
 
 export default postsSlice.reducer;

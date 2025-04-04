@@ -1,23 +1,28 @@
 export const postsAPI = {
-  fetchPosts() {
+  fetchPosts(limit = null) {
     try {
-        return fetch(`https://jsonplaceholder.typicode.com/posts?_sort=id&_order=desc&_limit=6`)
+      const url = `https://jsonplaceholder.typicode.com/posts?_sort=id&_order=desc${
+        limit ? `&_limit=${limit}` : ""
+      }`;
+      return fetch(url)
         .then((res) => res.json())
         .then((posts) => posts);
     } catch (ex) {
-        console.log(ex);
+      console.log(ex);
     }
   },
 
   fetchFreshPosts(limit = 3) {
     try {
-        return fetch(`https://jsonplaceholder.typicode.com/posts/?_limit=${limit}&_sort=id&_order=desc`)
+      const url = `https://jsonplaceholder.typicode.com/posts?_sort=id&_order=desc&_limit=${limit}`;
+      return fetch(url)
         .then((res) => res.json())
         .then((posts) => posts);
     } catch (ex) {
-        console.log(ex);
+      console.log(ex);
     }
   },
+
   fetchById(id) {
     try {
       if (!id) {
