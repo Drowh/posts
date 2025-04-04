@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Typo } from "../../../components/Typo";
+import { Typo } from "../../../components/ui/Typo";
 import { FaArrowUp } from "react-icons/fa";
-import { Link } from "../../../components/Link";
+import { Link } from "../../../components/ui/Link";
 import {
   getPostById,
   showPost,
   deletePost,
 } from "../../../redux/slices/postSlice";
-import { Button } from "../../../components/Button";
+import { Button } from "../../../components/ui/Button";
 
 import * as SC from "./styles";
-import { Loader } from "../../../components/Loader";
+import { Loader } from "../../../components/ui/Loader";
 
 export const DetailPostPage = () => {
   const { id } = useParams();

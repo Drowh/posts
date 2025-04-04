@@ -1,6 +1,6 @@
 import * as SC from "./styles";
 import { FaArrowRight } from "react-icons/fa";
-import { Link } from "../../../Link";
+import { Link } from '../../../../components/ui/Link';
 
 export const Post = ({ post }) => {
   

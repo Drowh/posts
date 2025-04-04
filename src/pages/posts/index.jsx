@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Posts } from "../../components/Posts";
-import { Typo } from "../../components/Typo";
+import { Typo } from "../../components/ui/Typo";
 import { useEffect } from "react";
 import { getPosts } from "../../redux/slices/postSlice";
 

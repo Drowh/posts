@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PostForm } from "../components/PostForm";
 import { useParams } from "react-router-dom";
 import { editPost } from "../../../redux/slices/postSlice";
-import { Typo } from "../../../components/Typo";
+import { Typo } from "./../../../components/ui/Typo";
 
 export const EditPostPage = () => {
   const { id } = useParams();
