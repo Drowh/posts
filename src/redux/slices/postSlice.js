@@ -40,7 +40,7 @@ export const postsSlice = createSlice({
     editPost: (state, action) => {
       state.posts.list = state.posts.list.map((post) => {
         if (post.id === action.payload.id) {
-          return action.payload 
+          return action.payload
         }
         return post;
       })

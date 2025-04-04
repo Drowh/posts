@@ -10,12 +10,22 @@ export const MainPage = () => {
 
   const { post } = useSelector((state) => state.posts.postForView);
   const { posts, loading } = useSelector((state) => state.posts.freshPosts);
+  const { list } = useSelector((state) => state.posts.posts);
 
   useEffect(() => {
-    dispatch(getPosts()).then(() => {
-      dispatch(getFreshPosts());
-    });
-  }, []);
+    const loadData = async () => {
+      if (!list) {
+        await dispatch(getPosts());
+      }
+
+      if (!posts) {
+        dispatch(getFreshPosts());
+      }
+    };
+
+    loadData();
+  }, [dispatch, list, posts]);
+
   return (
     <>
       {loading && <Loader />}
