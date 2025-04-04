@@ -3,13 +3,13 @@ import { Posts } from "../../components/Posts";
 import { useEffect } from "react";
 import { getFreshPosts, getPosts } from "../../redux/slices/postSlice";
 import { Typo } from "../../components/ui/Typo";
+import { Loader } from "../../components/ui/Loader";
 
 export const MainPage = () => {
-
   const dispatch = useDispatch();
 
-  const {post} = useSelector((state) => state.posts.postForView);
-  const {posts, loading} = useSelector((state) => state.posts.freshPosts);
+  const { post } = useSelector((state) => state.posts.postForView);
+  const { posts, loading } = useSelector((state) => state.posts.freshPosts);
 
   useEffect(() => {
     dispatch(getPosts()).then(() => {
@@ -18,7 +18,7 @@ export const MainPage = () => {
   }, []);
   return (
     <>
-    {loading && <Typo>Loading...</Typo>}
+      {loading && <Loader />}
       {posts && (
         <>
           <Typo>Свежие публикации</Typo>

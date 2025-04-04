@@ -5,7 +5,7 @@ import { Container } from "../../components/container";
 import { Form, FormTitle } from "../../components/ui/form";
 import { Field } from "../../components/ui/field";
 import { Input } from "../../components/ui/input";
-import { useDispatch } from "react-redux"
+import { useDispatch } from "react-redux";
 import { login } from "../../redux/slices/authSlice";
 
 export const AuthPage = () => {
@@ -16,30 +16,32 @@ export const AuthPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-    const onSubmit = (e) => {
-      e.preventDefault();
-      try {
-const users = JSON.parse(localStorage.getItem("users")) || [];
-        
-        if (!users) {
-          alert("Пользователь не найден");
-          return;
-        }
-        const currentUser = users.find(
-          (user) => user.email === formValues.email && user.password === formValues.password
-        );
-        if (!currentUser) {
-          alert("Пользователь не найден");
-          return;
-        }
+  const onSubmit = (e) => {
+  e.preventDefault();
+  try {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
 
-        dispatch(login(currentUser));
-        navigate("/posts");
+    if (!users) {
+      alert("Пользователь не найден");
+      return;
+    }
+    const currentUser = users.find(
+      (user) =>
+        user.email === formValues.email &&
+        user.password === formValues.password
+    );
+    if (!currentUser) {
+      alert("Пользователь не найден");
+      return;
+    }
 
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    dispatch(login(currentUser)); 
+    navigate("/posts");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
   const onChange = (name, value) => {
     setFormValues({ ...formValues, [name]: value });
