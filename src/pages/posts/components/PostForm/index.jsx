@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Container } from "../../../../components/container";
-import * as SC from "./styles";
-import { Button } from "../../../../components/Button";
+import { Button } from "../../../../components/ui/Button";
+import { Form, FormTitle } from "../../../../components/ui/Form";
+import { Field } from "../../../../components/ui/Field";
+import { TextArea } from "../../../../components/ui/TextArea";
+import { Input } from "../../../../components/ui/Input";
 
 const DEFAULT_VALUES = {
   title: "",
@@ -27,35 +30,31 @@ export const PostForm = ({ title, onSubmitForm, defaultValues }) => {
 
   return (
     <Container>
-      <SC.FormContainer>
-        <SC.FormTitle>{title}</SC.FormTitle>
-        <SC.Form onSubmit={onSubmit}>
-          <SC.FormGroup>
-            <SC.Label htmlFor="title">Заголовок</SC.Label>
-            <SC.Input
-              type="text"
-              name="title"
-              value={formValues.title}
-              placeholder="Введите заголовок"
-              onChange={(e) => onChange(e.target.name, e.target.value)}
-            />
-          </SC.FormGroup>
-
-          <SC.FormGroup>
-            <SC.Label htmlFor="body">Содержание</SC.Label>
-            <SC.TextArea
-              name="body"
-              value={formValues.body}
-              placeholder="Введите текст"
-              onChange={(e) => onChange(e.target.name, e.target.value)}
-            />
-          </SC.FormGroup>
-
-          <Button type="submit" disabled={disabled}>
-            Сохранить
-          </Button>
-        </SC.Form>
-      </SC.FormContainer>
+      <Form onSubmit={onSubmit}>
+        <FormTitle>{title}</FormTitle>
+        <Field htmlFor="title">
+          Заголовок
+          <Input
+            type="text"
+            name="title"
+            value={formValues.title}
+            placeholder="Введите заголовок"
+            onChange={(e) => onChange(e.target.name, e.target.value)}
+          />
+        </Field>
+        <Field htmlFor="body">
+          Содержание
+          <TextArea
+            name="body"
+            value={formValues.body}
+            placeholder="Введите текст"
+            onChange={(e) => onChange(e.target.name, e.target.value)}
+          />
+        </Field>
+        <Button type="submit" disabled={disabled}>
+          Сохранить
+        </Button>
+      </Form>
     </Container>
   );
 };
