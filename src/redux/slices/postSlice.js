@@ -1,19 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { postsAPI } from "../../api/postsAPI";
+import { postDefaultValue } from "../../constants";
 
 const initialState = {
-  posts: {
-    list: null,
-    loading: false,
-  },
-  postForView: {
-    post: null,
-    loading: false,
-  },
-  freshPosts: {
-    posts: null,
-    loading: false,
-  },
+  posts: { ...postDefaultValue },
+  postForView: { ...postDefaultValue, post: null },
+  freshPosts: { ...postDefaultValue },
 };
 
 export const getPostById = createAsyncThunk(
@@ -108,6 +100,13 @@ export const postsSlice = createSlice({
     });
   },
 });
+
+export const selectPostsList = (state) => state.posts.posts.list;
+export const selectPostsLoading = (state) => state.posts.posts.loading;
+export const selectPostForView = (state) => state.posts.postForView.post;
+export const selectPostForViewLoading = (state) => state.posts.postForView.loading;
+export const selectFreshPosts = (state) => state.posts.freshPosts.posts;
+export const selectFreshPostsLoading = (state) => state.posts.freshPosts.loading;
 
 export const { editPost, addPost, showPost, deletePost } = postsSlice.actions;
 
