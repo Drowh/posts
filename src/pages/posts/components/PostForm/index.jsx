@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container } from "../../../../components/container";
 import { Button } from "../../../../components/ui/Button";
 import { Form, FormTitle } from "../../../../components/ui/Form";
@@ -11,8 +12,9 @@ const DEFAULT_VALUES = {
   body: "",
 };
 
-export const PostForm = ({ title, onSubmitForm, defaultValues }) => {
+export const PostForm = ({ title, onSubmitForm, defaultValues, postId }) => {
   const [formValues, setFormValues] = useState(defaultValues || DEFAULT_VALUES);
+  const navigate = useNavigate();
 
   const onChange = (name, value) => {
     setFormValues({ ...formValues, [name]: value });
@@ -24,6 +26,14 @@ export const PostForm = ({ title, onSubmitForm, defaultValues }) => {
     onSubmitForm(formValues);
 
     !defaultValues && setFormValues(DEFAULT_VALUES);
+  };
+
+  const handleCancel = () => {
+    if (postId) {
+      navigate(`/posts/${postId}`);
+    } else {
+      navigate("/posts");
+    }
   };
 
   const disabled = !formValues.title || !formValues.body;
@@ -51,9 +61,14 @@ export const PostForm = ({ title, onSubmitForm, defaultValues }) => {
             onChange={(e) => onChange(e.target.name, e.target.value)}
           />
         </Field>
-        <Button type="submit" disabled={disabled}>
-          Сохранить
-        </Button>
+        <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
+          <Button type="submit" disabled={disabled}>
+            Сохранить
+          </Button>
+          <Button type="button" onClick={handleCancel}>
+            Отмена
+          </Button>
+        </div>
       </Form>
     </Container>
   );

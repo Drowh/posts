@@ -89,7 +89,7 @@ export const DetailPostPage = () => {
         </Modal>
       )}
       <SC.PostTitle>
-        <Typo>{post.title}</Typo>
+        <Typo asText={true}>{post.title}</Typo>
       </SC.PostTitle>
       <SC.PostImage src={image} alt={post.title} />
       <SC.PostContent>{post.body}</SC.PostContent>

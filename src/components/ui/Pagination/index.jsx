@@ -14,14 +14,17 @@ export const Pagination = ({ totalItems, itemsPerPage, onPageChange }) => {
   const renderPageNumbers = () => {
     const pages = [];
     const maxVisiblePages = 5;
-    const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    const startPage = Math.max(
+      1,
+      currentPage - Math.floor(maxVisiblePages / 2)
+    );
     const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
     for (let i = startPage; i <= endPage; i++) {
       pages.push(
         <SC.PageButton
           key={i}
-          isActive={i === currentPage}
+          $isActive={i === currentPage}
           onClick={() => handlePageChange(i)}
         >
           {i}

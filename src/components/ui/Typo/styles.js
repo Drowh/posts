@@ -9,7 +9,7 @@ export const Title = styled.h1`
   position: relative;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -10px;
     left: 50%;
@@ -19,4 +19,11 @@ export const Title = styled.h1`
     background-color: #2a6df4;
     border-radius: 2px;
   }
+`;
+
+export const TextContent = styled.span`
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  position: relative;
 `;
